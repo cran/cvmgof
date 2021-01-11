@@ -26,8 +26,7 @@
 J. T. Alcala, J. A. Cristobal, and W. Gonzalez Manteiga. Goodness-of-fit test for linear
 models based on local polynomials. \emph{Statistics & Probability Letters}, 42(1), 39:46, 1999.
 
-R. Azais, S. Ferrigno and M-J Martinez. cvmgof: An R package for Cramér-von Mises goodness-of-fit tests in regression
-models. 2018. Preprint in progress.
+R. Azais, S. Ferrigno and M-J Martinez. cvmgof: An R package for Cramer-von Mises goodness-of-fit tests in regression models. Submitted. January 2021.\href{https://hal.archives-ouvertes.fr/hal-03101612}{hal-03101612}
 
 
 
@@ -37,25 +36,26 @@ models. 2018. Preprint in progress.
 \author{Romain Azais, Sandie Ferrigno and Marie-Jose Martinez}
 
 \examples{
-set.seed(1)
+# Uncomment the following code block
 
-# Data simulation
-n = 25 # Dataset size
-data.X = runif(n,min=0,max=5) # X
-data.Y = 0.2*data.X^2-data.X+2+rnorm(n,mean=0,sd=0.3) # Y
-
-########################################################################
-
-# Estimation of the link function
-
-bandwidth = 0.75 # Here, the bandwidth is arbitrarily fixed
-
-xgrid = seq(0,5,by=0.1)
-ygrid_acgm = acgm.linkfunction.estim(xgrid,data.X,data.Y,bandwidth)
-
-plot(xgrid,ygrid_acgm,type='l',lty=1,lwd=2,xlab='X',ylab='Y',ylim=c(0.25,2.5))
-lines(xgrid,0.2*xgrid^2-xgrid+2,lwd=0.5,col='gray')
-
+# set.seed(1)
+#
+# # Data simulation
+# n = 25 # Dataset size
+# data.X = runif(n,min=0,max=5) # X
+# data.Y = 0.2*data.X^2-data.X+2+rnorm(n,mean=0,sd=0.3) # Y
+#
+# ########################################################################
+#
+# # Estimation of the link function
+#
+# bandwidth = 0.75 # Here, the bandwidth is arbitrarily fixed
+#
+# xgrid = seq(0,5,by=0.1)
+# ygrid_acgm = acgm.linkfunction.estim(xgrid,data.X,data.Y,bandwidth)
+#
+# plot(xgrid,ygrid_acgm,type='l',lty=1,lwd=2,xlab='X',ylab='Y',ylim=c(0.25,2.5))
+# lines(xgrid,0.2*xgrid^2-xgrid+2,lwd=0.5,col='gray')
 }
 
 

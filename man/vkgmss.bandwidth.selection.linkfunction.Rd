@@ -31,9 +31,7 @@ I. Van Keilegom, W. Gonzalez Manteiga, and C. Sanchez Sellero. Goodness-of-fit t
 parametric regression based on the estimation of the error distribution. \emph{Test}, 17, 401:415,
 2008.
 
-R. Azais, S. Ferrigno and M-J Martinez. cvmgof: An R package for Cramér-von Mises goodness-of-fit tests in regression
-models. 2018. Preprint in progress.
-
+R. Azais, S. Ferrigno and M-J Martinez. cvmgof: An R package for Cramer-von Mises goodness-of-fit tests in regression models. Submitted. January 2021.\href{https://hal.archives-ouvertes.fr/hal-03101612}{hal-03101612}
 
 }
 
@@ -41,26 +39,25 @@ models. 2018. Preprint in progress.
 
 
 \examples{
-
-set.seed(1)
-
-# Data simulation
-n = 25 # Dataset size
-data.X = runif(n,min=0,max=5) # X
-data.Y = 0.2*data.X^2-data.X+2+rnorm(n,mean=0,sd=0.3) # Y
-
-########################################################################
-
-# Bandwidth selection under H0
-
-# We generate a dataset under H0 to estimate the optimal bandwidth under H0
-
-linkfunction.H0 = function(x){0.2*x^2-x+2}
-
-data.X.H0 = runif(n,min=0,max=5)
-data.Y.H0 = linkfunction.H0(data.X.H0)+rnorm(n,mean=0,sd=0.3)
-
-h.opt.vkgmss = vkgmss.bandwidth.selection.linkfunction(data.X.H0 , data.Y.H0,linkfunction.H0)
-
+# Uncomment the following code block
+#
+# set.seed(1)
+#
+# # Data simulation
+# n = 25 # Dataset size
+# data.X = runif(n,min=0,max=5) # X
+# data.Y = 0.2*data.X^2-data.X+2+rnorm(n,mean=0,sd=0.3) # Y
+#
+# ########################################################################
+#
+# # Bandwidth selection under H0
+#
+# # We generate a dataset under H0 to estimate the optimal bandwidth under H0
+#
+# linkfunction.H0 = function(x){0.2*x^2-x+2}
+#
+# data.X.H0 = runif(n,min=0,max=5)
+# data.Y.H0 = linkfunction.H0(data.X.H0)+rnorm(n,mean=0,sd=0.3)
+#
+# h.opt.vkgmss = vkgmss.bandwidth.selection.linkfunction(data.X.H0, data.Y.H0,linkfunction.H0)
 }
-

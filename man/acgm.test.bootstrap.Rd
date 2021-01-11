@@ -25,7 +25,7 @@
 
   \item{kernel.function}{the kernel function used to obtain the nonparametric estimator of the regression function. Default option is "kernel.function.epan".}
 
-  \item{bootstrap}{a numeric vector of length 2. The first value specifies the number of bootstrap datasets (default is "50"). The second value specifies the distribution used for the wild bootstrap resampling (default is "Mammen").}
+  \item{bootstrap}{a numeric vector of length 2. The first value specifies the number of bootstrap datasets (default is "50"). The second value specifies the distribution used for the wild bootstrap resampling.The default is "Mammen" and the other options are "Rademacher" or "Gaussian".}
 
   \item{integration.step}{a numeric value specifying integration step. Default is \code{integration.step} = 0.01.}
 
@@ -58,47 +58,48 @@ An inappropriate bandwidth choice can produce "NaN" values in test statistics.
 J. T. Alcala, J. A. Cristobal, and W. Gonzalez Manteiga. Goodness-of-fit test for linear
 models based on local polynomials. \emph{Statistics & Probability Letters}, 42(1), 39:46, 1999.
 
-R. Azais, S. Ferrigno and M-J Martinez. cvmgof: An R package for Cramér-von Mises goodness-of-fit tests in regression
-models. 2018. Preprint in progress.
+R. Azais, S. Ferrigno and M-J Martinez. cvmgof: An R package for Cramer-von Mises goodness-of-fit tests in regression models. Submitted. January 2021.\href{https://hal.archives-ouvertes.fr/hal-03101612}{hal-03101612}
 
 }
 
 \author{Romain Azais, Sandie Ferrigno and Marie-Jose Martinez}
 
 \examples{
-
-set.seed(1)
-
-# Data simulation
-n = 25 # Dataset size
-data.X = runif(n,min=0,max=5) # X
-data.Y = 0.2*data.X^2-data.X+2+rnorm(n,mean=0,sd=0.3) # Y
-
-########################################################################
-
-# Test (bootstrap) under H0
-
-# We want to test if the link function is f(x)=0.2*x^2-x+2
-# The answer is yes (see the definition of data.Y above)
-# We generate a dataset under H0 to estimate the optimal bandwidth under H0
-
-linkfunction.H0 = function(x){0.2*x^2-x+2}
-
-test_acgm.H0 = acgm.test.bootstrap(data.X,data.Y,linkfunction.H0,
-	0.05,bandwidth='optimal',bootstrap=c(50,'Mammen'),integration.step = 0.01)
-
-
-########################################################################
-
-# Test (bootstrap) under H1
-
-# We want to test if the link function is f(x)=0.5*cos(x)+1
-# The answer is no (see the definition of data.Y above)
-
-linkfunction.H1=function(x){0.8*cos(x)+1}
-
-test_acgm.H1 = acgm.test.bootstrap(data.X,data.Y,linkfunction.H1,0.05,
-	bandwidth='optimal',bootstrap=c(50,'Mammen'),integration.step = 0.01)
-
+# Uncomment the following code block
+#
+# set.seed(1)
+#
+# # Data simulation
+# n = 25 # Dataset size
+# data.X = runif(n,min=0,max=5) # X
+# data.Y = 0.2*data.X^2-data.X+2+rnorm(n,mean=0,sd=0.3) # Y
+#
+# ########################################################################
+#
+# # Test (bootstrap) under H0
+#
+# # We want to test if the link function is f(x)=0.2*x^2-x+2
+# # The answer is yes (see the definition of data.Y above)
+# # We generate a dataset under H0 to estimate the optimal bandwidth under H0
+#
+# linkfunction.H0 = function(x){0.2*x^2-x+2}
+#
+# test_acgm.H0 = acgm.test.bootstrap(data.X,data.Y,linkfunction.H0,
+#                                    0.05,bandwidth='optimal',bootstrap=c(50,'Mammen'),
+#                                    integration.step = 0.01)
+#
+#
+# ########################################################################
+#
+# # Test (bootstrap) under H1
+#
+# # We want to test if the link function is f(x)=0.5*cos(x)+1
+# # The answer is no (see the definition of data.Y above)
+#
+# linkfunction.H1=function(x){0.8*cos(x)+1}
+#
+# test_acgm.H1 = acgm.test.bootstrap(data.X,data.Y,linkfunction.H1,0.05,
+#                                    bandwidth='optimal',bootstrap=c(50,'Mammen'),
+#                                    integration.step = 0.01)
 }
 

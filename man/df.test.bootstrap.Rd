@@ -25,7 +25,7 @@ df.test.bootstrap(data.X, data.Y, cdf.H0, risk, bandwidth,
 
   \item{kernel.function}{the kernel function used to obtain the nonparametric estimator of the conditional distribution function. Default option is "kernel.function.epan".}
 
-  \item{bootstrap}{a numeric vector of length 2. The first value specifies the number of bootstrap datasets (default is "50"). The second value specifies the distribution used for the wild bootstrap resampling (default is "Mammen").}
+  \item{bootstrap}{a numeric vector of length 2. The first value specifies the number of bootstrap datasets (default is "50"). The second value specifies the distribution used for the wild bootstrap resampling.The default is "Mammen" and the other options are "Rademacher" or "Gaussian".}
 
   \item{integration.step}{a numeric value specifying integration step. Default is \code{integration.step} = 0.01.}
 }
@@ -57,87 +57,89 @@ G. R. Ducharme and S. Ferrigno. An omnibus test of goodness-of-fit for condition
 with applications to regression models. \emph{Journal of Statistical Planning and
 Inference}, 142, 2748:2761, 2012.
 
-R. Azais, S. Ferrigno and M-J Martinez. cvmgof: An R package for Cramér-von Mises goodness-of-fit tests in regression
-models. 2018. Preprint in progress.
+R. Azais, S. Ferrigno and M-J Martinez. cvmgof: An R package for Cramer-von Mises goodness-of-fit tests in regression models. Submitted. January 2021.\href{https://hal.archives-ouvertes.fr/hal-03101612}{hal-03101612}
 
 }
 
 \author{Romain Azais, Sandie Ferrigno and Marie-Jose Martinez}
 
 \examples{
-
-set.seed(1)
-
-# Data simulation
-n = 25 # Dataset size
-data.X = runif(n,min=0,max=5) # X
-data.Y = 0.2*data.X^2-data.X+2+rnorm(n,mean=0,sd=0.3) # Y
-
-
-########################################################################
-
-# Bandwidth selection under H0
-
-# We want to test if the link function is f(x)=0.2*x^2-x+2
-# The answer is yes (see the definition of data.Y above)
-# We generate a dataset under H0 to estimate the optimal bandwidth under H0
-
-linkfunction.H0 = function(x){0.2*x^2-x+2}
-
-data.X.H0 = runif(n,min=0,max=5)
-data.Y.H0 = linkfunction.H0(data.X.H0)+rnorm(n,mean=0,sd=0.3)
-
-h.opt.df = df.bandwidth.selection.linkfunction(data.X.H0 , data.Y.H0,linkfunction.H0)
-
-########################################################################
-
-# Test (bootstrap) under H0
-
-# Remainder:
-# Ducharme and Ferrigno test is on the conditional CDF and not on the link function
-# Thus we need to define the conditional CDF associated
-# with the link function under H0 to evaluate this test
-
-cond_cdf.H0 = function(x,y)
-{
-  out=matrix(0,nrow=length(x),ncol=length(y))
-  for (i in 1:length(x)){
-    x0=x[i]
-    out[i,]=pnorm(y-linkfunction.H0(x0),0,0.3)
-  }
-  out
-}
-# cond_cdf.H0 is the conditional CDF associated with linkfunction.H0
-# with additive Gaussian noise (standard deviation=0.3)
-
-# Test (bootstrap) under H0
-
-test_df.H0 = df.test.bootstrap(data.X,data.Y,cond_cdf.H0,
-  0.05,h.opt.df,bootstrap=c(50,'Mammen'),integration.step = 0.01)
-
-########################################################################
-
-# Test (bootstrap) under H1
-
-# We want to test if the link function is f(x)=0.5*cos(x)+1
-# The answer is no (see the definition of data.Y above)
-
-linkfunction.H1=function(x){0.8*cos(x)+1}
-
-data.X.H1 = data.X.H0
-data.Y.H1 = linkfunction.H1(data.X.H1)+rnorm(n,mean=0,sd=0.3)
-h.opt.df = df.bandwidth.selection.linkfunction(data.X.H1 , data.Y.H1,linkfunction.H1)
-
-cond_cdf.H1=function(x,y)
-{
-  out=matrix(0,nrow=length(x),ncol=length(y))
-  for (i in 1:length(x)){
-    x0=x[i]
-    out[i,]=pnorm(y-linkfunction.H1(x0),0,0.3)
-  }
-  out
-}
-
-test_df.H1 = df.test.bootstrap(data.X,data.Y,cond_cdf.H1,
-  0.05,h.opt.df,bootstrap=c(50,'Mammen'),integration.step = 0.01)
+# Uncomment the following code block
+#
+# set.seed(1)
+#
+# # Data simulation
+# n = 25 # Dataset size
+# data.X = runif(n,min=0,max=5) # X
+# data.Y = 0.2*data.X^2-data.X+2+rnorm(n,mean=0,sd=0.3) # Y
+#
+#
+# ########################################################################
+#
+# # Bandwidth selection under H0
+#
+# # We want to test if the link function is f(x)=0.2*x^2-x+2
+# # The answer is yes (see the definition of data.Y above)
+# # We generate a dataset under H0 to estimate the optimal bandwidth under H0
+#
+# linkfunction.H0 = function(x){0.2*x^2-x+2}
+#
+# data.X.H0 = runif(n,min=0,max=5)
+# data.Y.H0 = linkfunction.H0(data.X.H0)+rnorm(n,mean=0,sd=0.3)
+#
+# h.opt.df = df.bandwidth.selection.linkfunction(data.X.H0, data.Y.H0,linkfunction.H0)
+#
+# ########################################################################
+#
+# # Test (bootstrap) under H0
+#
+# # Remainder:
+# # Ducharme and Ferrigno test is on the conditional CDF and not on the link function
+# # Thus we need to define the conditional CDF associated
+# # with the link function under H0 to evaluate this test
+#
+# cond_cdf.H0 = function(x,y)
+# {
+#   out=matrix(0,nrow=length(x),ncol=length(y))
+#   for (i in 1:length(x)){
+#     x0=x[i]
+#     out[i,]=pnorm(y-linkfunction.H0(x0),0,0.3)
+#   }
+#   out
+# }
+# # cond_cdf.H0 is the conditional CDF associated with linkfunction.H0
+# # with additive Gaussian noise (standard deviation=0.3)
+#
+# # Test (bootstrap) under H0
+#
+# test_df.H0 = df.test.bootstrap(data.X,data.Y,cond_cdf.H0,
+#                                0.05,h.opt.df,bootstrap=c(50,'Mammen'),
+#                                integration.step = 0.01)
+#
+# ########################################################################
+#
+# # Test (bootstrap) under H1
+#
+# # We want to test if the link function is f(x)=0.5*cos(x)+1
+# # The answer is no (see the definition of data.Y above)
+#
+# linkfunction.H1=function(x){0.8*cos(x)+1}
+#
+# data.X.H1 = data.X.H0
+# data.Y.H1 = linkfunction.H1(data.X.H1)+rnorm(n,mean=0,sd=0.3)
+# h.opt.df = df.bandwidth.selection.linkfunction(data.X.H1, data.Y.H1,linkfunction.H1)
+#
+# cond_cdf.H1=function(x,y)
+# {
+#   out=matrix(0,nrow=length(x),ncol=length(y))
+#   for (i in 1:length(x)){
+#     x0=x[i]
+#     out[i,]=pnorm(y-linkfunction.H1(x0),0,0.3)
+#   }
+#   out
+# }
+#
+# test_df.H1 = df.test.bootstrap(data.X,data.Y,cond_cdf.H1,
+#                                0.05,h.opt.df,bootstrap=c(50,'Mammen'),
+#                                integration.step = 0.01)
 }

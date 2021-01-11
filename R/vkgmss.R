@@ -94,7 +94,7 @@ vkgmss.bandwidth.selection.linkfunction=function(data.X.H0,data.Y.H0,linkfunctio
   {
     .vkgmss.bandwidth.selection.costfunction(bd,dat.X.H0,dat.Y.H0,linkfunction.H0 , kernel.function)
   }
-  opt = optim(mean(diff(dat.X.H0)),cost,method ="Brent",lower=min(diff(dat.X.H0))/5,upper=max(diff(dat.X.H0))*5)
+  opt = optim(mean(diff(dat.X.H0)),cost,method ="Brent",lower=min(diff(dat.X.H0))/5,upper=max(diff(dat.X.H0))*10)
   hopt = opt$par
   if (verbose==TRUE)
   {
@@ -174,7 +174,7 @@ vkgmss.statistics=function(data.X,data.Y,linkfunction.H0,bandwidth='optimal',ker
 
 .vkgmss.test.stat.bootstrap=function(data.X,data.Y,data.newY,bandwidth,kernel.function=kernel.function.epan,integration.step)
 {
-  res.H0 = .vkgmss.residuals.estim(data.X ,data.Y,bandwidth,kernel.function)
+  res.H0 = .vkgmss.residuals.estim(data.X,data.newY,bandwidth,kernel.function)
   error = (vkgmss.residuals.cdf.estim(res.H0,data.X,data.Y,bandwidth,kernel.function) - vkgmss.residuals.cdf.estim(res.H0,data.X,data.newY,bandwidth,kernel.function))^2
   sum(error)
 }

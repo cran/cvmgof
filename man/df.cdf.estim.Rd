@@ -29,8 +29,7 @@ G. R. Ducharme and S. Ferrigno. An omnibus test of goodness-of-fit for condition
 with applications to regression models. \emph{Journal of Statistical Planning and
 Inference}, 142, 2748:2761, 2012.
 
-R. Azais, S. Ferrigno and M-J Martinez. cvmgof: An R package for Cramér-von Mises goodness-of-fit tests in regression
-models. 2018. Preprint in progress.
+R. Azais, S. Ferrigno and M-J Martinez. cvmgof: An R package for Cramer-von Mises goodness-of-fit tests in regression models. Submitted. January 2021.\href{https://hal.archives-ouvertes.fr/hal-03101612}{hal-03101612}
 
 
 
@@ -62,8 +61,7 @@ ygrid = seq(-1,3,by=0.1)
 cdf_df = df.cdf.estim(xgrid,ygrid,data.X,data.Y,bandwidth)
 
 wireframe(cdf_df, drape=TRUE,
-	col.regions=rainbow(100),zlab='CDF(y|x)',xlab='x',ylab='y',zlim=c(0,1.01))
-
+          col.regions=rainbow(100),zlab='CDF(y|x)',xlab='x',ylab='y',zlim=c(0,1.01))
 }
 
 

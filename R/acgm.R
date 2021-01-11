@@ -90,7 +90,7 @@ acgm.bandwidth.selection.linkfunction=function(data.X.H0,data.Y.H0,linkfunction.
   {
     .acgm.bandwidth.selection.costfunction(bd,dat.X.H0,dat.Y.H0,linkfunction.H0 , kernel.function)
   }
-  opt = optim(mean(diff(dat.X.H0)),cost,method ="Brent",lower=min(diff(dat.X.H0))/5,upper=max(diff(dat.X.H0))*5)
+  opt = optim(mean(diff(dat.X.H0)),cost,method ="Brent",lower=min(diff(dat.X.H0))/5,upper=max(diff(dat.X.H0))*10)
   hopt = opt$par
   if (verbose==TRUE)
   {
@@ -206,3 +206,4 @@ acgm.test.bootstrap=function(data.X,data.Y,linkfunction.H0,risk,bandwidth='optim
   list('decision'=out,'bandwidth'=bdw,'pvalue'=pval,'test_statistics'=stattest)
 }
 ########################################################
+
